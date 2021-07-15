@@ -42,3 +42,9 @@ jobs:
       
     - name: Test
       run: dotnet test unit-testing-using-nunit.sln /p:CollectCoverage=true /p:DeterministicSourcePaths=true /p:IncludeTestAssembly=true /p:CoverletOutputFormat=opencover%2ccobertura /p:CoverletOutput=../target/reports/coverage/
+      
+    - name: 'Publish code coverage results'
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport
+        path: src/target/reports/coverage
