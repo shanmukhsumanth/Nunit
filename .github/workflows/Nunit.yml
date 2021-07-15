@@ -49,7 +49,7 @@ jobs:
         reports: 'src\target\reports\coverage\coverage.opencover.xml'
         targetdir: 'src\target\reports\coverage'
         reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
-        sourcedirs: 'unit-testing-using-nunit.sln'
+        sourcedirs: 'unit-testing-using-nunit.csproj'
         assemblyfilters: '-xunit*'
         
     - name: 'Publish code coverage results'
