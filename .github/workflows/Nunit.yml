@@ -29,7 +29,7 @@ jobs:
       #run: dotnet restore
     - name: Build
       working-directory: ./
-      run: dotnet build unit-testing-using-nunit.sln
+      run: msbuild  unit-testing-using-nunit.sln
       
     - name: add package Microsoft.NET.Test.Sdk
       run: dotnet add unit-testing-using-nunit.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
