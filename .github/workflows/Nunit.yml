@@ -32,10 +32,10 @@ jobs:
       run: dotnet build unit-testing-using-nunit.sln
       
     - name: add package Microsoft.NET.Test.Sdk
-      run: dotnet add package Microsoft.NET.Test.Sdk --version 16.10.0 
+      run: dotnet add ./Nunit/unit-testing-using-nunit.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
       
     - name: add package Nunit3TestAdapter
-      run: dotnet add package Nunit3TestAdapter
+      run: dotnet add ./Nunit/unit-testing-using-nunit.csproj package Nunit3TestAdapter
       
     - name: add package NUnit
       run: dotnet add package NUnit
