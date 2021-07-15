@@ -34,8 +34,10 @@ jobs:
     - name: add package Microsoft.NET.Test.Sdk
       run: dotnet add unit-testing-using-nunit.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
       
-    - name: add package Nunit3TestAdapter
-      run: dotnet add unit-testing-using-nunit.csproj package Nunit3TestAdapter
+    - name: add package Nunit3Consoler
+      run: dotnet add unit-testing-using-nunit.csproj package NUnit.ConsoleRunner --version 3.12.0
+      
+    
       
     - name: add package NUnit
       run: dotnet add unit-testing-using-nunit.csproj package NUnit
@@ -43,17 +45,4 @@ jobs:
     - name: Test
       run: dotnet test unit-testing-using-nunit.sln /p:CollectCoverage=true /p:DeterministicSourcePaths=true /p:IncludeTestAssembly=true /p:CoverletOutputFormat=opencover%2ccobertura /p:CoverletOutput=../target/reports/coverage/
       
-    - name: ReportGenerator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.8.9
-      with:
-        reports: 'src\target\reports\coverage\coverage.opencover.xml'
-        targetdir: 'src\target\reports\coverage'
-        reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
-        sourcedirs: 'unit-testing-using-nunit.csproj'
-        assemblyfilters: '-xunit*'
-        
-    - name: 'Publish code coverage results'
-      uses: actions/upload-artifact@v2.2.3
-      with:
-        name: CoverageReport
-        path: src/target/reports/coverage
+ 
