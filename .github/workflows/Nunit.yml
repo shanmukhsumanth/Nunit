@@ -38,7 +38,7 @@ jobs:
       run: dotnet add unit-testing-using-nunit.csproj package Nunit3TestAdapter
       
     - name: add package NUnit
-      run: dotnet add package NUnit
+      run: dotnet add unit-testing-using-nunit.csproj package NUnit
       
     - name: Test
       run: dotnet test --no-build --verbosity normal
