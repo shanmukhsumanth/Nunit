@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore NuGet packages
-      working-directory: .
-      run: nuget restore unit-testing-using-nunit.sln
+    #- name: Restore NuGet packages
+     # working-directory: .
+      #run: nuget restore unit-testing-using-nunit.sln
       
     - name: NUnit
       run: dotnet new nunit
