@@ -43,7 +43,7 @@ jobs:
     
       
     - name: add package NUnit
-      run: dotnet add unit-testing-using-nunit.csproj package NUnit
+      run: dotnet add unit-testing-using-nunit.csproj unit-testing-using-nunit.csproj package NUnit
     
     - name: add test logger package 
       run: dotnet add package NunitXml.TestLogger --version 3.0.107
