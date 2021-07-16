@@ -49,6 +49,7 @@ jobs:
       run: dotnet add unit-testing-using-nunit.csproj package NunitXml.TestLogger --version 3.0.107
       
     - name: Test
-      run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
+      run: dotnet test --logger trx
+      #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
       
  
