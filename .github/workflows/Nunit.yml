@@ -59,20 +59,6 @@ jobs:
           # Artifact name
          name: artifact 
          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
-    - name: ReportGenerator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.8.9
-      with:
-          reports: '/home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml'
-          targetdir: './'
-          reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
-          #sourcedirs: 'unit-testing-using-nunit.csproj'
-          assemblyfilters: '-Nunit*'
-        
-    - name: 'Publish code coverage results'
-      uses: actions/upload-artifact@v2.2.3
-      with:
-          name: CoverageReport
-          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
           
     -  name: Sonarscanner for dotnet
        uses: Secbyte/dotnet-sonarscanner@v1.2
