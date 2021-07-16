@@ -73,6 +73,18 @@ jobs:
       with:
           name: CoverageReport
           path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
+          
+    -  name: Sonarscanner for dotnet
+       uses: Secbyte/dotnet-sonarscanner@v1.2
+       with:
+          sonarHostname: http://3.141.23.89:9000
+          buildCommand: dotnet build
+          testCommand: dotnet test
+          projectKey: Shanmukh
+          projectName: DotnetSonar
+          
+          verbose: "true"
+          openCoverPaths: "/home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml"
 
       
  
