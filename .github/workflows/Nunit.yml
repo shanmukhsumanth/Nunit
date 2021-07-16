@@ -49,6 +49,6 @@ jobs:
      # run: dotnet tool install unit-testing-using-nunit.csproj NUnit.ConsoleRunner.NetCore --version 3.12.0-beta2
       
     - name: Test
-      run: dotnet test -r ../TestResults --logger:trx --logger:"nunit;LogFilePath=../test-result.xml" 
+      run: dotnet test unit-testing-using-nunit.sln -r ../TestResults --logger:trx --logger:"nunit;LogFilePath=../test-result.xml" 
       
  
