@@ -45,10 +45,10 @@ jobs:
     - name: add package NUnit
       run: dotnet add unit-testing-using-nunit.csproj package NUnit
     
-    #- name: Install Nunit console 
-     # run: dotnet tool install unit-testing-using-nunit.csproj NUnit.ConsoleRunner.NetCore --version 3.12.0-beta2
+    - name: add test logger package 
+      run: dotnet add package NunitXml.TestLogger --version 3.0.107
       
     - name: Test
-      run: dotnet test unit-testing-using-nunit.sln -r ../TestResults --logger:trx --logger:"nunit;LogFilePath=../test-result.xml" 
+      run: dotnet test -l:trx;LogFileName= ./TestOutput.xml
       
  
