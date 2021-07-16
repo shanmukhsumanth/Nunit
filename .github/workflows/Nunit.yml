@@ -43,6 +43,6 @@ jobs:
       run: dotnet add unit-testing-using-nunit.csproj package NUnit
       
     - name: Test
-      run: nunit3-console unit-testing-using-nunit.sln 
+      run: NUnit.ConsoleRunner.3.12.0\tools\nunit3-console.exe unit-testing-using-nunit.sln 
       
  
