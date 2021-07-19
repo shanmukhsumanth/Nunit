@@ -70,7 +70,7 @@ jobs:
     - name: Dot cover coverage          
       uses: dodopizza/dotcover-action@v1
       with:
-         dotCoverCommand: cover /TargetExecutable="/home/runner/work/Nunit/Nunit/unit-testing-using-nunit.csproj"
+         dotCoverCommand: cover /TargetExecutable="/home/runner/work/Nunit/Nunit/Nunit3TestAdapter.exe"
                                 /TargetArguments="/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp5.0/PrimeService.Tests.dll"
                                /Output="AppCoverageReport.html"
                               /ReportType="HTML"
