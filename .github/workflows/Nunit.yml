@@ -66,10 +66,12 @@ jobs:
    
     
 
-         
-    - name: Dot cover coverage          
+    - name: dotnet cover  
       uses: dodopizza/dotcover-action@v1
-      run : dotCover help cover coverage.xml
+      with:
+         dotCoverCommand: dotCover help cover coverage.xml
+       
+
  
     - name: 'Publish code coverage results'
       uses: actions/upload-artifact@v2.2.3
