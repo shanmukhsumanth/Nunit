@@ -52,7 +52,7 @@ jobs:
       run: dotnet add unit-testing-using-nunit.csproj package TeamCity.dotcover
       
     - name: Test
-      run: dotnet dotcover test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
       #run: dotnet test unit-testing-using-nunit.sln --logger trx
       #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
       
@@ -67,11 +67,13 @@ jobs:
     
 
          
-    #- name: Dot cover coverage          
-     # uses: dodopizza/dotcover-action@v1
-      #with:
-      #   dotCoverCommand: cover
-         #configFile: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
+    - name: Dot cover coverage          
+      uses: dodopizza/dotcover-action@v1
+      with:
+         dotCoverCommand: cover /TargetExecutable="/home/runner/work/Nunit/Nunit/unit-testing-using-nunit.csproj"
+                                /TargetArguments="/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp5.0/PrimeService.Tests.dll"
+                               /Output="AppCoverageReport.html"
+                              /ReportType="HTML"
        
     - name: 'Publish code coverage results'
       uses: actions/upload-artifact@v2.2.3
