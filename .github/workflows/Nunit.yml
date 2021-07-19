@@ -77,6 +77,6 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
           name: CoverageReport
-          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml 
+          path: ./github/workspace/coverage.xml 
 
  
