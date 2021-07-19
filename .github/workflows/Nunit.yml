@@ -48,6 +48,9 @@ jobs:
     - name: add test logger package 
       run: dotnet add unit-testing-using-nunit.csproj package NunitXml.TestLogger --version 3.0.107
       
+    - name: add package NUnit
+      run: dotnet add unit-testing-using-nunit.csproj package TeamCity.dotcover
+      
     - name: Test
       run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
       #run: dotnet test unit-testing-using-nunit.sln --logger trx
@@ -60,12 +63,7 @@ jobs:
          name: artifact 
          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
          
-    - name: Dot cover coverage          
-      uses: dodopizza/dotcover-action@v1
-         
-    - name: Generate config file
-      run: dotCover.sh dotnet --output=AppCoverageReport.xml 
-      
+   
     
 
          
