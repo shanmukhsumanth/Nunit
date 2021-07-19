@@ -65,11 +65,11 @@ jobs:
       with:
          dotCoverCommand: cover
          configFile: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
-         
+       
     - name: 'Publish code coverage results'
       uses: actions/upload-artifact@v2.2.3
       with:
           name: CoverageReport
-          path: D:\a\MS-and-Nunit\MS-and-Nunit\PrimeService.Tests\TestResults 
+          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml 
 
  
