@@ -60,10 +60,13 @@ jobs:
          name: artifact 
          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
          
-    - name: Dot cover coverage          
-      uses: dodopizza/dotcover-action@v1
-      with:
-         dotCoverCommand: cover
+    - name: Generate config file
+      run: dotCover help cover config.xml
+         
+    #- name: Dot cover coverage          
+     # uses: dodopizza/dotcover-action@v1
+      #with:
+      #   dotCoverCommand: cover
          #configFile: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
        
     - name: 'Publish code coverage results'
