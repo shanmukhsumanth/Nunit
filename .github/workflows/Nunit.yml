@@ -61,7 +61,7 @@ jobs:
          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
          
     - name: Generate config file
-      run: dotnet add unit-testing-using-nunit.csproj package JetBrains.dotCover.CommandLineTools -Version 2021.1.0
+      run: dotCover.sh dotnet --output=AppCoverageReport.xml 
 
          
     #- name: Dot cover coverage          
