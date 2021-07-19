@@ -69,7 +69,7 @@ jobs:
     - name: dotnet cover  
       uses: dodopizza/dotcover-action@v1
       with:
-         dotCoverCommand: dotCover help cover coverage.xml
+         dotCoverCommand: help cover coverage.xml
        
 
  
