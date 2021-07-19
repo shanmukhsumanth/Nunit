@@ -61,7 +61,7 @@ jobs:
          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
          
     - name: Generate config file
-      run: dotCover help cover config.xml
+      run: dotnet tool install -g dotnet-config
          
     #- name: Dot cover coverage          
      # uses: dodopizza/dotcover-action@v1
