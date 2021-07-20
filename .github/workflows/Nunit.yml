@@ -79,6 +79,6 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
           name: CoverageReport
-          path: ./CodeCoverageReport.html 
+          path: ./CodeCoverageReport.xml 
 
  
