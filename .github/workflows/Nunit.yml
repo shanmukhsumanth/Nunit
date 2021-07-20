@@ -79,6 +79,6 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
           name: CoverageReport
-          path: ${{github.workspace}}/coverage.xml 
+          path: ./CodeCoverageReport.html 
 
  
