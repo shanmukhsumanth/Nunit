@@ -29,27 +29,27 @@ jobs:
       #run: dotnet restore
     - name: Build
       working-directory: ./
-      run: dotnet build  unit-testing-using-nunit.csproj
+      run: dotnet build  unit-testing-using-nunit1.csproj
       
     - name: add package Microsoft.NET.Test.Sdk
-      run: dotnet add unit-testing-using-nunit.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
+      run: dotnet add unit-testing-using-nunit1.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
       
     - name: add package Nunit3Consoler
-      run: dotnet add unit-testing-using-nunit.csproj package NUnit.ConsoleRunner --version 3.12.0
+      run: dotnet add unit-testing-using-nunit1.csproj package NUnit.ConsoleRunner --version 3.12.0
       
     - name: add package Nunit3TestAdapter
-      run: dotnet add unit-testing-using-nunit.csproj package Nunit3TestAdapter
+      run: dotnet add unit-testing-using-nunit1.csproj package Nunit3TestAdapter
       
     
       
     - name: add package NUnit
-      run: dotnet add unit-testing-using-nunit.csproj package NUnit
+      run: dotnet add unit-testing-using-nunit1.csproj package NUnit
     
     - name: add test logger package 
-      run: dotnet add unit-testing-using-nunit.csproj package NunitXml.TestLogger --version 3.0.107
+      run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
       
-    - name: add package NUnit
-      run: dotnet add unit-testing-using-nunit.csproj package TeamCity.dotcover
+    #- name: add package NUnit
+     # run: dotnet add unit-testing-using-nunit1.csproj package TeamCity.dotcover
       
     - name: Test
       run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
