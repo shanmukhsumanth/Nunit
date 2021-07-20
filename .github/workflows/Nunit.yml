@@ -69,7 +69,9 @@ jobs:
     - name: dotnet cover  
       uses: dodopizza/dotcover-action@v1
       with:
-         dotCoverCommand: help cover coverage.xml
+         #dotCoverCommand: help cover coverage.xml
+         dotCoverCommand: dotnet --output=AppCoverageReport.html --reportType=HTML -- test "./unit-testing-using-nunit.csproj"
+
        
 
  
