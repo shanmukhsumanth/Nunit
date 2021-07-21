@@ -21,47 +21,47 @@ jobs:
      # working-directory: .
       #run: nuget restore unit-testing-using-nunit.sln
       
-    - name: NUnit
-      run: dotnet new nunit
+#     - name: NUnit
+#       run: dotnet new nunit
       
-    #- name: Restore dependencies 
-     # working-directory: ./core/getting-started/unit-testing-using-nunit/unit-testing-using-nunit.sln
-      #run: dotnet restore
-    - name: Build
-      working-directory: ./
-      run: dotnet build  unit-testing-using-nunit1.csproj
+#     #- name: Restore dependencies 
+#      # working-directory: ./core/getting-started/unit-testing-using-nunit/unit-testing-using-nunit.sln
+#       #run: dotnet restore
+#     - name: Build
+#       working-directory: ./
+#       run: dotnet build  unit-testing-using-nunit1.csproj
       
-    - name: add package Microsoft.NET.Test.Sdk
-      run: dotnet add unit-testing-using-nunit1.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
+#     - name: add package Microsoft.NET.Test.Sdk
+#       run: dotnet add unit-testing-using-nunit1.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
       
-    - name: add package Nunit3Consoler
-      run: dotnet add unit-testing-using-nunit1.csproj package NUnit.ConsoleRunner --version 3.12.0
+#     - name: add package Nunit3Consoler
+#       run: dotnet add unit-testing-using-nunit1.csproj package NUnit.ConsoleRunner --version 3.12.0
       
-    - name: add package Nunit3TestAdapter
-      run: dotnet add unit-testing-using-nunit1.csproj package Nunit3TestAdapter
+#     - name: add package Nunit3TestAdapter
+#       run: dotnet add unit-testing-using-nunit1.csproj package Nunit3TestAdapter
       
     
       
-    - name: add package NUnit
-      run: dotnet add unit-testing-using-nunit1.csproj package NUnit
+#     - name: add package NUnit
+#       run: dotnet add unit-testing-using-nunit1.csproj package NUnit
     
-    - name: add test logger package 
-      run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
+#     - name: add test logger package 
+#       run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
       
-    #- name: add package NUnit
-     # run: dotnet add unit-testing-using-nunit1.csproj package TeamCity.dotcover
+#     #- name: add package NUnit
+#      # run: dotnet add unit-testing-using-nunit1.csproj package TeamCity.dotcover
       
-    - name: Test
-      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
-      #run: dotnet test unit-testing-using-nunit.sln --logger trx
-      #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
+#     - name: Test
+#       run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+#       #run: dotnet test unit-testing-using-nunit.sln --logger trx
+#       #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
       
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2.2.4
-      with:
-          # Artifact name
-         name: artifact 
-         path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
+#     - name: Upload a Build Artifact
+#       uses: actions/upload-artifact@v2.2.4
+#       with:
+#           # Artifact name
+#          name: artifact 
+#          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
          
    
     
@@ -76,7 +76,7 @@ jobs:
       run: Install unit-testing-using-nunit1.csproj package JetBrains.dotCover.CommandLineTools --version 2021.1.0
       
     - name: Cover report
-      run: dotnet dotcover -- test "D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj" --dcXML="./config.xml"
+      run: dotnet dotcover test --dcXML="./config.xml"
 
 
 
