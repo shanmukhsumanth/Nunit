@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1
-    #- name: Restore NuGet packages
-     # working-directory: .
-      #run: nuget restore unit-testing-using-nunit.sln
+    - name: Restore NuGet packages
+      working-directory: .
+      run: nuget restore unit-testing-using-nunit.sln
       
     #- name: NUnit
     #  run: dotnet new nunit
@@ -54,7 +54,7 @@ jobs:
      # run: dotnet add unit-testing-using-nunit1.csproj package TeamCity.dotcover
       
     - name: Test
-      run: dotnet test --result=NUnitResults.xml
+      run: nunit3-console.exe --result=NUnitResults.xml
       #run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
       #run: dotnet test unit-testing-using-nunit.sln --logger trx
       #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
