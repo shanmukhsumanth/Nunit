@@ -76,7 +76,8 @@ jobs:
       run: Install unit-testing-using-nunit1.csproj package JetBrains.dotCover.CommandLineTools --version 2021.1.0
       
     - name: Cover report
-      run: dotnet --output=AppCoverageReport.html --reportType=HTML -- test "./unit-testing-using-nunit1.csproj"
+      run: dotnet dotcover test --dcXML="./config.xml"
+
 
 
        
@@ -86,6 +87,6 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
           name: CoverageReport
-          path: ./CodeCoverageReport.xml 
+          path: ./config.xml 
 
  
