@@ -77,7 +77,7 @@ jobs:
       run:  dotnet tool install JetBrains.dotCover.GlobalTool -g
       
     - name: Code cover
-      run: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
+      run: dotnet --output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
 
       
 #     - name: Cover report
@@ -96,6 +96,6 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
           name: CoverageReport
-          path: ./config.xml 
+          path: ./CodeCoverageReport.xml
 
  
