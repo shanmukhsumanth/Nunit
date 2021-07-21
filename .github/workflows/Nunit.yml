@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -66,11 +66,18 @@ jobs:
    
     
 
-    - name: dotnet cover  
-      uses: dodopizza/dotcover-action@v1
-      with:
+    #- name: dotnet cover  
+     # uses: dodopizza/dotcover-action@v1
+      #with:
          #dotCoverCommand: help cover coverage.xml
-         dotCoverCommand: dotnet --output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
+       #  dotCoverCommand: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
+
+    - name: Install dotcove CLI
+      run: Install unit-testing-using-nunit1.csproj -Package JetBrains.dotCover.CommandLineTools -Version 2021.1.0
+      
+    - name: Cover report
+      run: dotCover.sh dotnet --output=AppCoverageReport.html --reportType=HTML -- test "./unit-testing-using-nunit1.csproj"
+
 
        
 
