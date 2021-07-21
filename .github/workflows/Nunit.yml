@@ -74,7 +74,7 @@ jobs:
 
     - name: Install dotcove CLI
       run: |
-            Get-ChildItem -Path "D:\a\Nunit\Nunit"
+            Get-ChildItem -Path "D:\a\Nunit" -Recurse
             dotnet tool install JetBrains.dotCover.GlobalTool -g
 
       
