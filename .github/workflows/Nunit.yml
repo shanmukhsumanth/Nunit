@@ -73,7 +73,9 @@ jobs:
        #  dotCoverCommand: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
 
     - name: Install dotcove CLI
-      run: dotnet tool install JetBrains.dotCover.GlobalTool -g
+      run: |
+            Get-ChildItem -Path "D:\a\Nunit\Nunit"
+            dotnet tool install JetBrains.dotCover.GlobalTool -g
 
       
     - name: Cover report
