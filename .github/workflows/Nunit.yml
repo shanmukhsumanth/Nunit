@@ -64,7 +64,8 @@ jobs:
          path: D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj
          
    
-    
+    - name: add package Dotcover
+      run: dotnet add package TeamCity.dotcover
 
     #- name: dotnet cover  
      # uses: dodopizza/dotcover-action@v1
@@ -74,13 +75,16 @@ jobs:
 
     - name: Install dotcove CLI
       run:  dotnet tool install JetBrains.dotCover.GlobalTool -g
+      
+    - name: Code cover
+      run: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
 
       
-    - name: Cover report
-      run:  dotnet /TargetExecutable="D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj"
-                  /TargetArguments="D:\a\Nunit\Nunit\PrimeService.Tests\bin\Debug\netcoreapp5.0\PrimeService.Tests.dll"
-                  /Output="AppCoverageReport.html"
-                  /ReportType="HTML"
+#     - name: Cover report
+#       run:  dotCover.exe /TargetExecutable="D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj"
+#                         /TargetArguments="D:\a\Nunit\Nunit\PrimeService.Tests\bin\Debug\netcoreapp5.0\PrimeService.Tests.dll"
+#                        /Output="AppCoverageReport.html"
+#                       /ReportType="HTML"
 
 
 
