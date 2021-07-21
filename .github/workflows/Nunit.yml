@@ -73,7 +73,7 @@ jobs:
        #  dotCoverCommand: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
 
     - name: Install dotcove CLI
-      run: Install unit-testing-using-nunit1.csproj -Package JetBrains.dotCover.CommandLineTools -Version 2021.1.0
+      run: Install unit-testing-using-nunit1.csproj package JetBrains.dotCover.CommandLineTools -Version 2021.1.0
       
     - name: Cover report
       run: dotCover.sh dotnet --output=AppCoverageReport.html --reportType=HTML -- test "./unit-testing-using-nunit1.csproj"
