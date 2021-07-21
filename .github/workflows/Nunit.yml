@@ -77,7 +77,7 @@ jobs:
       
     - name: Cover report
       run: |
-            Get-ChildItem -Path "D:\a\Nunit\Nunit" -Recurse
+            Remove-Item -Path "D:\a\Nunit\Nunit\Nunit.csproj"
             dotnet dotcover test D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj --dcXML="./config.xml"
 
 
