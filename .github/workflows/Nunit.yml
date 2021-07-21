@@ -54,7 +54,7 @@ jobs:
      # run: dotnet add unit-testing-using-nunit1.csproj package TeamCity.dotcover
       
     - name: Test
-      run: nunit3-console --result=NUnitResults.xml
+      run: dotnet test --result=NUnitResults.xml
       #run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
       #run: dotnet test unit-testing-using-nunit.sln --logger trx
       #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
