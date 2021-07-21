@@ -77,10 +77,10 @@ jobs:
 
       
     - name: Cover report
-      run: dotCover cover /TargetExecutable="D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj"
-                         /TargetArguments="D:\a\Nunit\Nunit\PrimeService.Tests\bin\Debug\netcoreapp5.0\PrimeService.Tests.dll"
-                        /Output="AppCoverageReport.html"
-                        /ReportType="HTML"
+      run:  cover /TargetExecutable="D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj"
+                  /TargetArguments="D:\a\Nunit\Nunit\PrimeService.Tests\bin\Debug\netcoreapp5.0\PrimeService.Tests.dll"
+                  /Output="AppCoverageReport.html"
+                  /ReportType="HTML"
 
 
 
