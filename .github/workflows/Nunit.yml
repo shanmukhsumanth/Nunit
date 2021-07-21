@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -54,7 +54,8 @@ jobs:
      # run: dotnet add unit-testing-using-nunit1.csproj package TeamCity.dotcover
       
     - name: Test
-      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      run: nunit3-console.exe --result=NUnitResults.xml
+      #run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
       #run: dotnet test unit-testing-using-nunit.sln --logger trx
       #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
       
@@ -68,35 +69,20 @@ jobs:
    
   
 
-    #- name: dotnet cover  
-     # uses: dodopizza/dotcover-action@v1
-      #with:
-         #dotCoverCommand: help cover coverage.xml
-       #  dotCoverCommand: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
-
-    - name: Install dotcove CLI
-      run:  dotnet tool install JetBrains.dotCover.GlobalTool -g
+#     - name: dotnet cover  
+#       uses: dodopizza/dotcover-action@v1
+#       with:
+#          #dotCoverCommand: help cover coverage.xml
+#          dotCoverCommand: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
       
-    - name: Code cover
-      run:  dotnet test "./unit-testing-using-nunit1.csproj"
-
-      
-#     - name: Cover report
-#       run:  dotCover.exe /TargetExecutable="D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj"
-#                         /TargetArguments="D:\a\Nunit\Nunit\PrimeService.Tests\bin\Debug\netcoreapp5.0\PrimeService.Tests.dll"
-#                        /Output="AppCoverageReport.html"
-#                       /ReportType="HTML"
-
-
-
-
-       
 
  
-    - name: 'Publish code coverage results'
-      uses: actions/upload-artifact@v2.2.3
-      with:
-          name: CoverageReport
-          path: ./CodeCoverageReport.xml
+#     - name: 'Publish code coverage results'
+#       uses: actions/upload-artifact@v2.2.3
+#       with:
+#           name: CoverageReport
+#           path: ./CodeCoverageReport.xml
+
+    
 
  
