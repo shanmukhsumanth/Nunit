@@ -76,7 +76,7 @@ jobs:
       run: Install unit-testing-using-nunit1.csproj package JetBrains.dotCover.CommandLineTools --version 2021.1.0
       
     - name: Cover report
-      run: dotnet dotcover test "./unit-testing-using-nunit1.csproj" --dcXML="./config.xml"
+      run: dotnet dotcover test D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj --dcXML="./config.xml"
 
 
 
