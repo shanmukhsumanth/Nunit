@@ -77,7 +77,7 @@ jobs:
       run:  dotnet tool install JetBrains.dotCover.GlobalTool -g
       
     - name: Code cover
-      run: dotnet test
+      run:  dotnet test "./unit-testing-using-nunit1.csproj"
 
       
 #     - name: Cover report
