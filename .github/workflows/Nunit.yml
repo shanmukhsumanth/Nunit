@@ -76,12 +76,15 @@ jobs:
            dotnet msbuild unit-testing-using-nunit.sln
    
   
-
+    - name: Test
+      #run: nunit3-console.exe --result=NUnitResults.xml
+      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      
     - name: dotnet cover  
       uses: dodopizza/dotcover-action@v1
       with:
          #dotCoverCommand: help cover coverage.xml
-         dotCoverCommand: dotnet --output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj" 
+         dotCoverCommand: dotnet --output=./CodeCoverageReport.html --reportType=HTML -- test "./unit-testing-using-nunit1.csproj" 
       
 
  
@@ -89,7 +92,7 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
           name: CoverageReport
-          path: ./CodeCoverageReport.xml
+          path: ./CodeCoverageReport.html
 
     - name: Sonar end
       run: dotnet sonarscanner end /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf"
