@@ -55,8 +55,8 @@ jobs:
       
     - name: Test
       #run: nunit3-console.exe --result=NUnitResults.xml
-      #run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
-      run: dotnet test unit-testing-using-nunit.sln --logger trx
+      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      #run: dotnet test unit-testing-using-nunit.sln --logger trx
       #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
       
     - name: Upload a Build Artifact
@@ -64,25 +64,33 @@ jobs:
       with:
           # Artifact name
          name: artifact 
-         path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/*.trx
+         path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
          
+    - name: Sonar install 
+      run: dotnet tool install --global dotnet-sonarscanner
+      
+    - name: Sonar begin
+      run: |
+           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.vscoveragexml.reportsPaths=="./CodeCoverageReport.xml"
+           dotnet build 
    
   
 
-#     - name: dotnet cover  
-#       uses: dodopizza/dotcover-action@v1
-#       with:
-#          #dotCoverCommand: help cover coverage.xml
-#          dotCoverCommand: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj"
+    - name: dotnet cover  
+      uses: dodopizza/dotcover-action@v1
+      with:
+         #dotCoverCommand: help cover coverage.xml
+         dotCoverCommand: dotnet--output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj" --collect:“Code Coverage”
       
 
  
-#     - name: 'Publish code coverage results'
-#       uses: actions/upload-artifact@v2.2.3
-#       with:
-#           name: CoverageReport
-#           path: ./CodeCoverageReport.xml
+    - name: 'Publish code coverage results'
+      uses: actions/upload-artifact@v2.2.3
+      with:
+          name: CoverageReport
+          path: ./CodeCoverageReport.xml
 
-    
+    - name: Sonar end
+      run: dotnet sonarscanner end
 
  
