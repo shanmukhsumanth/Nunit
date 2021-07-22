@@ -67,20 +67,21 @@ jobs:
       
     - name: Sonar begin
       run: |
-           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.dotcover.reportsPaths="./CodeCoverageReport.html" /d:sonar.cs.nunit.reportsPaths="/home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml"  
+           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.dotcover.reportsPaths="./CodeCoverageReport.html" /d:sonar.cs.nunit.reportsPaths="/home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/_fv-az*.trx"  
            dotnet msbuild unit-testing-using-nunit.sln
    
   
     - name: Test
       #run: nunit3-console.exe --result=NUnitResults.xml
-      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      #run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.trx"
+      run: dotnet test unit-testing-using-nunit.sln --logger trx
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
           # Artifact name
          name: artifact 
-         path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
+         path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/_fv-az*.trx
       
     - name: dotnet cover  
       uses: dodopizza/dotcover-action@v1
