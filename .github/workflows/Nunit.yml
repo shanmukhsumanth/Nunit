@@ -81,7 +81,7 @@ jobs:
       uses: dodopizza/dotcover-action@v1
       with:
          #dotCoverCommand: help cover coverage.xml
-         dotCoverCommand: dotnet --output=./CodeCoverageReport.xml --reportType=XML --test "./unit-testing-using-nunit1.csproj" 
+         dotCoverCommand: dotnet --output=./CodeCoverageReport.xml --reportType=XML -- test "./unit-testing-using-nunit1.csproj" 
       
 
  
