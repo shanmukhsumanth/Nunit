@@ -72,7 +72,7 @@ jobs:
       
     - name: Sonar begin
       run: |
-           dotnet SonarScanner.MSBuild.exe begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="/home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml" /d:sonar.cs.dotcover.reportsPaths="./CodeCoverageReport.xml"
+           dotnet SonarScanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="/home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml" /d:sonar.cs.dotcover.reportsPaths="./CodeCoverageReport.xml"
            dotnet msbuild unit-testing-using-nunit.sln
            dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
    
@@ -93,5 +93,5 @@ jobs:
           path: ./CodeCoverageReport.html
 
     - name: Sonar end
-      run: dotnet SonarScanner.MSBuild.exe end /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf"
+      run: dotnet SonarScanner end /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf"
  
