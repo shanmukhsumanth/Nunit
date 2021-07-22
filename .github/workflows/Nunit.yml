@@ -55,8 +55,8 @@ jobs:
       
     - name: Test
       #run: nunit3-console.exe --result=NUnitResults.xml
-      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
-      #run: dotnet test unit-testing-using-nunit.sln --logger trx
+      #run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      run: dotnet test unit-testing-using-nunit.sln --logger trx
       #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
       
     - name: Upload a Build Artifact
