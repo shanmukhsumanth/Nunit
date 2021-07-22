@@ -64,7 +64,7 @@ jobs:
       with:
           # Artifact name
          name: artifact 
-         path: D:\a\Nunit\Nunit\unit-testing-using-nunit1.csproj
+         path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/*.trx
          
    
   
