@@ -54,11 +54,26 @@ jobs:
     #- name: add package NUnit
      # run: dotnet add unit-testing-using-nunit1.csproj package TeamCity.dotcover
       
+    #- name: Test
+      #run: nunit3-console.exe --result=NUnitResults.xml
+     # run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      #run: dotnet test unit-testing-using-nunit.sln --logger trx
+      #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
+      
+   
+         
+    - name: Sonar install 
+      run: dotnet tool install --global dotnet-sonarscanner
+      
+    - name: Sonar begin
+      run: |
+           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.dotcover.reportsPaths="./CodeCoverageReport.html" /d:sonar.cs.nunit.reportsPaths="/home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml"  
+           dotnet msbuild unit-testing-using-nunit.sln
+   
+  
     - name: Test
       #run: nunit3-console.exe --result=NUnitResults.xml
       run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
-      #run: dotnet test unit-testing-using-nunit.sln --logger trx
-      #run: dotnet test unit-testing-using-nunit.sln --collect "Code Coverage"
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
@@ -66,19 +81,6 @@ jobs:
           # Artifact name
          name: artifact 
          path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
-         
-    - name: Sonar install 
-      run: dotnet tool install --global dotnet-sonarscanner
-      
-    - name: Sonar begin
-      run: |
-           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.dotcover.reportsPaths="./CodeCoverageReport.xml"
-           dotnet msbuild unit-testing-using-nunit.sln
-   
-  
-    - name: Test
-      #run: nunit3-console.exe --result=NUnitResults.xml
-      run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
       
     - name: dotnet cover  
       uses: dodopizza/dotcover-action@v1
