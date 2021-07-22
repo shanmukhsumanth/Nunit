@@ -91,6 +91,5 @@ jobs:
           path: ./CodeCoverageReport.xml
 
     - name: Sonar end
-      run: dotnet sonarscanner end
-
+      run: dotnet sonarscanner end /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf"
  
