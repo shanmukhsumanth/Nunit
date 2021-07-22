@@ -67,7 +67,7 @@ jobs:
       
     - name: Sonar begin
       run: |
-           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.dotcover.reportsPaths="./CodeCoverageReport.html" /d:sonar.cs.nunit.reportsPaths="./testresult.xml"  
+           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="./testresult.xml"  
            dotnet msbuild unit-testing-using-nunit.sln
    
   
@@ -83,21 +83,21 @@ jobs:
       with:
           # Artifact name
          name: artifact 
-         path: /home/runner/work/Nunit/Nunit/PrimeService.Tests/TestResults/testresult.xml
+         path: ./testresult.xml
       
-    - name: dotnet cover  
-      uses: dodopizza/dotcover-action@v1
-      with:
-         #dotCoverCommand: help cover coverage.xml
-         dotCoverCommand: dotnet --output=./CodeCoverageReport.html --reportType=HTML -- test "./unit-testing-using-nunit1.csproj" 
+#     - name: dotnet cover  
+#       uses: dodopizza/dotcover-action@v1
+#       with:
+#          #dotCoverCommand: help cover coverage.xml
+#          dotCoverCommand: dotnet --output=./CodeCoverageReport.html --reportType=HTML -- test "./unit-testing-using-nunit1.csproj" 
       
 
  
-    - name: 'Publish code coverage results'
-      uses: actions/upload-artifact@v2.2.3
-      with:
-          name: CoverageReport
-          path: ./CodeCoverageReport.html
+#     - name: 'Publish code coverage results'
+#       uses: actions/upload-artifact@v2.2.3
+#       with:
+#           name: CoverageReport
+#           path: ./CodeCoverageReport.html
 
     - name: Sonar end
       run: dotnet sonarscanner end /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf"
