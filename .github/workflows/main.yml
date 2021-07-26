@@ -52,6 +52,7 @@ jobs:
 
        
       - name: powershell
+        shell: pwsh
         run: |
              Get-ChildItem -path "/home/runner/work/Nunit/Nunit/sonar/scanner" -Recurse
        
