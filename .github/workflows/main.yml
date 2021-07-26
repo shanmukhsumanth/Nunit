@@ -80,7 +80,9 @@ jobs:
         # run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
          
       - name: powershell
-        run:  Get-ChildItem -path "/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp3.1" -Recurse
+        shell: pwsh
+        run: | 
+             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp3.1" -Recurse
      
      
      
