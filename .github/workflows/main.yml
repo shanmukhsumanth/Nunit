@@ -61,6 +61,14 @@ jobs:
         run: |
              /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe begin /k:"test" /d:sonar.host.url="http://18.223.255.187:9000/" /d:sonar.login="468e915bea1f082d467573a002519263bc54598d" /d:sonar.cs.nunit.reportsPaths="reports/nunit_results.xml"
              dotnet msbuild /target:Rebuild unit-testing-using-nunit.sln
+             
+             
+      - name: install nunit consoller
+        working-directory: /home/runner/work/Nunit/Nunit/
+        shell: pwsh
+        run: |
+             New-Item -Path /home/runner/work/Nunit/Nunit/ConsoleRunner -ItemType Directory
+             dotnet add package NUnit.ConsoleRunner --version 3.12.0
        
       - name: end analysis
         run:  /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe end /d:sonar.login="468e915bea1f082d467573a002519263bc54598d"
