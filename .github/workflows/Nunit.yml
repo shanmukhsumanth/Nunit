@@ -66,7 +66,7 @@ jobs:
       run: dotnet tool install --global dotnet-sonarscanner
     
     - name: dowload sonarscanner
-      working-directory: D:\a\sonar_dotnet_examples\sonar_dotnet_examples\WebAnalysis
+      working-directory: /home/runner/work/Nunit/Nunit
       run: |
            New-Item -Path /home/runner/work/Nunit/Nunit/sonar/scanner -ItemType Directory
            Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip'
