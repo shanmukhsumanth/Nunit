@@ -55,6 +55,13 @@ jobs:
         shell: pwsh
         run: |
              Get-ChildItem -path "/home/runner/work/Nunit/Nunit/sonar/scanner" -Recurse
+             
+      - name: Begin sonar
+        shell: pwsh
+        run: |
+             /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe begin /k:"test" /d:sonar.host.url="http://18.223.255.187:9000/" /d:sonar.login="468e915bea1f082d467573a002519263bc54598d" /d:sonar.cs.nunit.reportsPaths="reports/nunit_results.xml"
+             MSBuild.exe /target:Rebuild /property:Configuration=SonarQube /p:Platform="Any CPU" /p:RunCodeAnalysis=True /p:RunCodeAnalysisOnThisProject=true unit-testing-using-nunit.sln
        
-       
+      - name: end analysis
+        run:  /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe end /d:sonar.login="468e915bea1f082d467573a002519263bc54598d"
        
