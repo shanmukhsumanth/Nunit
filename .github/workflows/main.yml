@@ -76,10 +76,15 @@ jobs:
         run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
         
       - name: run test
-        run: dotnet test unit-testing-using-nunit.sln
+        run: dotnet test unit-testing-using-nunit.sln 
         # run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
          
-       
+      - name: powershell
+        run:  Get-ChildItem -path "/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp3.1" -Recurse
+     
+     
+     
+     
       - name: end analysis
         run:  /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe end /d:sonar.login="468e915bea1f082d467573a002519263bc54598d"
        
