@@ -44,6 +44,7 @@ jobs:
        # uses: microsoft/setup-msbuild@v1
       - name: dowload sonarscanner
         working-directory: /home/runner/work/Nunit/Nunit/
+        shell: pwsh
         run: |
              New-Item -Path/home/runner/work/Nunit/Nunit/sonar/scanner -ItemType Directory
              Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip'
