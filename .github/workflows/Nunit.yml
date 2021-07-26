@@ -64,11 +64,20 @@ jobs:
          
     - name: Sonar install 
       run: dotnet tool install --global dotnet-sonarscanner
-      
-    - name: Sonar begin
+    
+    - name: dowload sonarscanner
+      working-directory: D:\a\sonar_dotnet_examples\sonar_dotnet_examples\WebAnalysis
       run: |
-           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="testresult.xml"  
-           dotnet msbuild unit-testing-using-nunit.sln
+           New-Item -Path /home/runner/work/Nunit/Nunit/sonar/scanner -ItemType Directory
+           Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip'
+           expand-archive -path '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath '/home/runner/work/Nunit/Nunit/sonar/scanner'    
+    - name: powershell
+      run: |
+           Get-ChildItem -path "/home/runner/work/Nunit/Nunit/sonar/scanner" -Recurse
+#     - name: Sonar begin
+#       run: |
+#            dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="testresult.xml"  
+#            dotnet msbuild unit-testing-using-nunit.sln
    
   
     - name: Test
