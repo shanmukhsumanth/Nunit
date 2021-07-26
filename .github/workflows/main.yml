@@ -76,7 +76,7 @@ jobs:
         run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
         
       - name: run test
-        run: dotnet test unit-testing-using-nunit.sln ---logger:"trx;LogFileName=testresult.xml" format=nunit2 --framework=net-4.5 --dispose-runners --workers=10
+        run: dotnet test unit-testing-using-nunit.sln ---logger:"trx;LogFileName=testresult.xml"
         # run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
          
        
