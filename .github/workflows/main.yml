@@ -76,7 +76,7 @@ jobs:
         run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
         
       - name: run test
-        run: dotnet test unit-testing-using-nunit.sln 
+        run: dotnet test unit-testing-using-nunit.sln --result=/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp3.1/nunit_results.xml
         # run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
          
       - name: powershell
