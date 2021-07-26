@@ -51,10 +51,7 @@ jobs:
              expand-archive -path '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath '/home/runner/work/Nunit/Nunit/sonar/scanner'    
 
        
-      - name: powershell
-        shell: pwsh
-        run: |
-             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/sonar/scanner" -Recurse
+     
              
       - name: Begin sonar
         shell: pwsh
@@ -69,6 +66,13 @@ jobs:
         run: |
              New-Item -Path /home/runner/work/Nunit/Nunit/ConsoleRunner -ItemType Directory
              dotnet add package NUnit.ConsoleRunner --version 3.12.0
+             
+             
+      - name: powershell
+        shell: pwsh
+        run: |
+             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/ConsoleRunner" -Recurse
+         
        
       - name: end analysis
         run:  /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe end /d:sonar.login="468e915bea1f082d467573a002519263bc54598d"
