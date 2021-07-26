@@ -67,11 +67,20 @@ jobs:
              New-Item -Path /home/runner/work/Nunit/Nunit/ConsoleRunner -ItemType Directory
              dotnet add package NUnit.ConsoleRunner --version 3.12.0
              
-             
-      - name: powershell
-        shell: pwsh
-        run: |
-             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/ConsoleRunner" -Recurse
+      - name: add package Nunit3TestAdapter
+        run: dotnet add unit-testing-using-nunit1.csproj package Nunit3TestAdapter
+      
+    
+      
+      - name: add package NUnit
+        run: dotnet add unit-testing-using-nunit1.csproj package NUnit
+    
+      - name: add test logger package 
+        run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
+        
+      - name: run test
+        run: dotnet test test unit-testing-using-nunit.sln ---logger:"trx;LogFileName=testresult.xml";format=nunit2 --framework=net-4.5 --dispose-runners --workers=10
+        # run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
          
        
       - name: end analysis
