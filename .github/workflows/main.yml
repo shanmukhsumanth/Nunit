@@ -1,0 +1,94 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    #- name: Setup MSBuild
+     # uses: microsoft/setup-msbuild@v1
+      
+   
+
+    - name: Restore NuGet packages
+      working-directory: D:\a\sonar_dotnet_examples\sonar_dotnet_examples\WebAnalysis
+      run: nuget restore 
+      
+  
+           
+   
+#     - name: Install SonarQube scanner
+#       working-directory: D:\a\sonar_dotnet_examples\sonar_dotnet_examples\WebAnalysis
+#       run: |
+#            New-Item -Path ./.sonar/scanner -ItemType Directory
+#            dotnet tool install sonar-scanner-msbuild --tool-path ./.sonar/scanner
+#            #dotnet tool install --global dotnet-sonarscanner
+
+
+    - name: dowload sonarscanner
+      working-directory: /home/runner/work/Nunit/Nunit
+      run: |
+           New-Item -Path /home/runner/work/Nunit/Nunit/sonar/scanner -ItemType Directory
+           Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile 'D:\a\sonar_dotnet_examples\sonar_dotnet_examples\WebAnalysis\sonar\scanner\sonar-scanner-msbuild-4.10.0.19059-net46.zip'
+           expand-archive -path '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath '/home/runner/work/Nunit/Nunit/sonar/scanner'    
+    #- name: powershell
+     # run: |
+      #     Get-ChildItem -path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise"
+      
+    - name: Begin sonar
+      run: |
+           D:\a\sonar_dotnet_examples\sonar_dotnet_examples\WebAnalysis\sonar\scanner\SonarScanner.MSBuild.exe begin /k:"test" /d:sonar.host.url="http://18.223.255.187:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="reports/nunit_results.xml" /d:sonar.cs.opencover.reportsPaths="reports/opencover_results.xml"  
+           dotnet msbuild /target:Rebuild unit-testing-using-nunit.sln
+    - name: add package Microsoft.NET.Test.Sdk
+      run: dotnet add unit-testing-using-nunit1.csproj package Microsoft.NET.Test.Sdk --version 16.10.0 
+      
+    - name: add package Nunit3Consoler
+      run: dotnet add package NUnit.Console --version 3.12.0
+      
+    - name: add package Nunit3TestAdapter
+      run: dotnet add unit-testing-using-nunit1.csproj package Nunit3TestAdapter
+      
+    
+      
+    - name: add package NUnit
+      run: dotnet add unit-testing-using-nunit1.csproj package NUnit
+    
+    - name: add test logger package 
+      run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
+      
+    - name: Test
+      #run: nunit3-console.exe --result=NUnitResults.xml
+      #run: dotnet test unit-testing-using-nunit.sln --logger trx
+      run: |
+           dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
+      
+      
+    - name: powershell
+      run: |
+          Get-ChildItem -path "/home/runner/work/Nunit/Nunit/sonar/scanner" -Recurse
+       #    Get-ChildItem -path "D:" -Recurse
+      
+    - name: Upload a Test Artifact NUnit
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        # Artifact name
+        name: artifact 
+        path: "reports/nunit_results.xml"
+        
+    - name: Upload a coverage Artifact opencover
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        # Artifact name
+        name: artifact 
+        path: reports/opencover_results.xml
+    
+    - name: end analysis
+      run:  D:\a\sonar_dotnet_examples\sonar_dotnet_examples\WebAnalysis\sonar\scanner\SonarScanner.MSBuild.exe end /d:sonar.login="468e915bea1f082d467573a002519263bc54598d"
