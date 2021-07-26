@@ -67,7 +67,7 @@ jobs:
       
     - name: Sonar begin
       run: |
-           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://13.59.238.74:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="testresult.xml"  
+           dotnet sonarscanner begin /k:".NetProject" /d:sonar.host.url="http://http://18.223.255.187:9000/" /d:sonar.login="56b95070f000082b0ab8e126a6c5209549826dbf" /d:sonar.cs.nunit.reportsPaths="testresult.xml"  
            dotnet msbuild unit-testing-using-nunit.sln
    
   
