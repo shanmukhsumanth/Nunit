@@ -38,43 +38,43 @@ jobs:
         working-directory: /home/runner/work/Nunit/Nunit/
         shell: pwsh
         run: |
-             New-Item -Path /home/runner/work/Nunit/Nunit/sonar/scanner -ItemType Directory
-             Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip'
-             expand-archive -path '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath '/home/runner/work/Nunit/Nunit/sonar/scanner'    
+             New-Item -Path D:\a\Nunit\Nunit\sonar\scanner -ItemType Directory
+             Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile 'D:\a\Nunit\Nunit\sonar\scanner\sonar-scanner-msbuild-4.10.0.19059-net46.zip'
+             expand-archive -path 'D:\a\Nunit\Nunit\sonar\scanner\sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath 'D:\a\Nunit\Nunit\sonar\scanner'    
       
       
       - name: dowload dotcover
-        working-directory: /home/runner/work/Nunit/Nunit
+        working-directory: D:\a\Nunit\Nunit\
         run: |
-             New-Item -Path /home/runner/work/Nunit/Nunit/dotcover -ItemType Directory
-             Invoke-RestMethod -Uri 'https://download.jetbrains.com/resharper/dotUltimate.2021.1.5/JetBrains.dotCover.CommandLineTools.2021.1.5.zip' -OutFile '/home/runner/work/Nunit/Nunit/dotcover/JetBrains.dotCover.CommandLineTools.2021.1.5.zip'
-             expand-archive -path '/home/runner/work/Nunit/Nunit/dotcover/JetBrains.dotCover.CommandLineTools.2021.1.5.zip' -destinationpath '/home/runner/work/Nunit/Nunit/dotcover'
+             New-Item -Path D:\a\Nunit\Nunit\dotcover -ItemType Directory
+             Invoke-RestMethod -Uri 'https://download.jetbrains.com/resharper/dotUltimate.2021.1.5/JetBrains.dotCover.CommandLineTools.2021.1.5.zip' -OutFile 'D:\a\Nunit\Nunit\dotcover\JetBrains.dotCover.CommandLineTools.2021.1.5.zip'
+             expand-archive -path 'D:\a\Nunit\Nunit\dotcover\JetBrains.dotCover.CommandLineTools.2021.1.5.zip' -destinationpath 'D:\a\Nunit\Nunit\dotcover'
     
       - name: dowload nunit
-        working-directory: /home/runner/work/Nunit/Nunit
+        working-directory: D:\a\Nunit\Nunit\Nunitconsole
         run: |
-             New-Item -Path /home/runner/work/Nunit/Nunit/Nunitconsole -ItemType Directory
-             Invoke-RestMethod -Uri 'https://github.com/nunit/nunit-console/releases/download/v3.12/NUnit.Console-3.12.0.zip' -OutFile '/home/runner/work/Nunit/Nunit/Nunitconsole/NUnit.Console-3.12.0.zip'
-             expand-archive -path '/home/runner/work/Nunit/Nunit/Nunitconsole/NUnit.Console-3.12.0.zip' -destinationpath '/home/runner/work/Nunit/Nunit/Nunitconsole'
+             New-Item -Path D:\a\Nunit\Nunit\Nunitconsole -ItemType Directory
+             Invoke-RestMethod -Uri 'https://github.com/nunit/nunit-console/releases/download/v3.12/NUnit.Console-3.12.0.zip' -OutFile 'D:\a\Nunit\Nunit\Nunitconsole\NUnit.Console-3.12.0.zip'
+             expand-archive -path 'D:\a\Nunit\Nunit\Nunitconsole\NUnit.Console-3.12.0.zip' -destinationpath 'D:\a\Nunit\Nunit\Nunitconsole'
      
       - name: powershell
         run: |
-             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/Nunitconsole" -Recurse
+             Get-ChildItem -path "D:\a\Nunit\Nunit\Nunitconsole" -Recurse
              
       - name: Begin sonar
         shell: pwsh
         run: |
-             /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe begin /k:"test" /d:sonar.host.url="http://18.223.255.187:9000/" /d:sonar.login="468e915bea1f082d467573a002519263bc54598d" /d:sonar.cs.nunit.reportsPaths="reports/nunit_results.xml" /d:sonar.cs.dotcover.reportsPaths="./SonarQube.html" /d:sonar.test.inclusions="**/*.Tests/**/*" /d:sonar.exclusions="**/*.test,**/vendor/**"  
+             D:\a\Nunit\Nunit\sonar\scanner\SonarScanner.MSBuild.exe begin /k:"test" /d:sonar.host.url="http://18.223.255.187:9000/" /d:sonar.login="468e915bea1f082d467573a002519263bc54598d" /d:sonar.cs.nunit.reportsPaths="reports/nunit_results.xml" /d:sonar.cs.dotcover.reportsPaths="./SonarQube.html" /d:sonar.test.inclusions="**/*.Tests/**/*" /d:sonar.exclusions="**/*.test,**/vendor/**"  
              MSBuild.exe /target:Rebuild /property:Configuration=SonarQube /p:Platform="Any CPU" /p:RunCodeAnalysis=True /p:RunCodeAnalysisOnThisProject=true /p:CollectCoverage=true D:\a\sonar_dotnet\sonar_dotnet\WebAnalysis\SQExamples.sln
       
       - name: nunit tests
-        run: /home/runner/work/Nunit/Nunit/Nunitconsole/nunit3-console.exe unit-testing-using-nunit1.csproj --result=reports\nunit_results.xml;format=nunit2 --output=reports\nunit_out.log --framework=net-4.5 --config=%configuration% --dispose-runners --workers=10
+        run: D:\a\Nunit\Nunit\Nunitconsole\nunit3-console.exe unit-testing-using-nunit1.csproj --result=reports\nunit_results.xml;format=nunit2 --output=reports\nunit_out.log --framework=net-4.5 --config=%configuration% --dispose-runners --workers=10
              
              
       - name: Dot cover code coverage
-        run: D:\a\sonar_dotnet\sonar_dotnet\WebAnalysis\dotcover\dotCover.exe cover 
-             /TargetExecutable="/home/runner/work/Nunit/Nunit/Nunitconsole/nunit3-console.exe"
-            /TargetArguments="/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/SonarQube/PrimeService.Tests.dll"
+        run: D:\a\Nunit\Nunit\dotcover\dotCover.exe cover 
+             /TargetExecutable="D:\a\Nunit\Nunit\Nunitconsole\nunit3-console.exe"
+            /TargetArguments="D:\a\Nunit\Nunit\PrimeService.Tests/bin/SonarQube/PrimeService.Tests.dll"
            /Output="./SonarQube.html"
           /ReportType=HTML
              
@@ -82,7 +82,7 @@ jobs:
       - name: powershell
         shell: pwsh
         run: | 
-             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin"
+             Get-ChildItem -path "D:\a\Nunit\Nunit\PrimeService.Tests/bin"
      
      
      
