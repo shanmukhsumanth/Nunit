@@ -51,7 +51,7 @@ jobs:
              expand-archive -path 'D:\a\Nunit\Nunit\dotcover\JetBrains.dotCover.CommandLineTools.2021.1.5.zip' -destinationpath 'D:\a\Nunit\Nunit\dotcover'
     
       - name: dowload nunit
-        working-directory: D:\a\Nunit\Nunit\Nunitconsole
+        working-directory: D:\a\Nunit\Nunit\
         run: |
              New-Item -Path D:\a\Nunit\Nunit\Nunitconsole -ItemType Directory
              Invoke-RestMethod -Uri 'https://github.com/nunit/nunit-console/releases/download/v3.12/NUnit.Console-3.12.0.zip' -OutFile 'D:\a\Nunit\Nunit\Nunitconsole\NUnit.Console-3.12.0.zip'
