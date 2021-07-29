@@ -35,12 +35,12 @@ jobs:
         
         
       - name: dowload sonarscanner
-        working-directory: /home/runner/work/Nunit/Nunit/
+        working-directory: .
         shell: pwsh
         run: |
-             New-Item -Path D:\a\Nunit\Nunit\sonar\scanner -ItemType Directory
-             Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile 'D:\a\Nunit\Nunit\sonar\scanner\sonar-scanner-msbuild-4.10.0.19059-net46.zip'
-             expand-archive -path 'D:\a\Nunit\Nunit\sonar\scanner\sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath 'D:\a\Nunit\Nunit\sonar\scanner'    
+             New-Item -Path .\sonar\scanner -ItemType Directory
+             Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile '.\sonar\scanner\sonar-scanner-msbuild-4.10.0.19059-net46.zip'
+             expand-archive -path '.\sonar\scanner\sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath '.\sonar\scanner'    
       
       
       - name: dowload dotcover
