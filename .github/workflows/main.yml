@@ -59,7 +59,15 @@ jobs:
      
       - name: powershell
         run: |
+             Get-ChildItem -path "D:\a\Nunit\Nunit"
+             
+      - name: powershell
+        run: |
              Get-ChildItem -path "D:\a\Nunit\Nunit\Nunitconsole" -Recurse
+             
+      - name: powershell
+        run: |
+             Get-ChildItem -path "D:\a\Nunit\Nunit\dotcover" -Recurse
              
       - name: Begin sonar
         shell: pwsh
@@ -68,12 +76,12 @@ jobs:
              MSBuild.exe /target:Rebuild /property:Configuration=SonarQube /p:Platform="Any CPU" /p:RunCodeAnalysis=True /p:RunCodeAnalysisOnThisProject=true /p:CollectCoverage=true D:\a\sonar_dotnet\sonar_dotnet\WebAnalysis\SQExamples.sln
       
       - name: nunit tests
-        run: D:\a\Nunit\Nunit\Nunitconsole\nunit3-console.exe unit-testing-using-nunit1.csproj --result=reports\nunit_results.xml;format=nunit2 --output=reports\nunit_out.log --framework=net-4.5 --config=%configuration% --dispose-runners --workers=10
+        run: D:\a\Nunit\Nunit\Nunitconsole\bin\net35\nunit3-console.exe unit-testing-using-nunit1.csproj --result=reports\nunit_results.xml;format=nunit2 --output=reports\nunit_out.log --framework=net-4.5 --config=%configuration% --dispose-runners --workers=10
              
              
       - name: Dot cover code coverage
         run: D:\a\Nunit\Nunit\dotcover\dotCover.exe cover 
-             /TargetExecutable="D:\a\Nunit\Nunit\Nunitconsole\nunit3-console.exe"
+             /TargetExecutable="D:\a\Nunit\Nunit\Nunitconsole\bin\net35\nunit3-console.exe"
             /TargetArguments="D:\a\Nunit\Nunit\PrimeService.Tests/bin/SonarQube/PrimeService.Tests.dll"
            /Output="./SonarQube.html"
           /ReportType=HTML
