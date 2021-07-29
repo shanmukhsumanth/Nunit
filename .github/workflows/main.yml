@@ -18,30 +18,22 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-        
-#       - name: Setup .NET
-#         uses: actions/setup-dotnet@v1
-#         with:
-#          dotnet-version: 5.0.x
-      - name: Setup .NET Core SDK ${{ env.VERSION }}
-        uses: actions/setup-dotnet@v1.7.2
-         
+            
       - name: Restore NuGet packages
         working-directory: .
         run: nuget restore unit-testing-using-nunit.sln
         
-      #- name: Setup MSBuild
-       # uses: microsoft/setup-msbuild@v1
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        
+        
       - name: dowload sonarscanner
         working-directory: /home/runner/work/Nunit/Nunit/
         shell: pwsh
@@ -49,40 +41,48 @@ jobs:
              New-Item -Path /home/runner/work/Nunit/Nunit/sonar/scanner -ItemType Directory
              Invoke-RestMethod -Uri 'https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.10.0.19059/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -OutFile '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip'
              expand-archive -path '/home/runner/work/Nunit/Nunit/sonar/scanner/sonar-scanner-msbuild-4.10.0.19059-net46.zip' -destinationpath '/home/runner/work/Nunit/Nunit/sonar/scanner'    
-
-       
+      
+      
+      - name: dowload dotcover
+        working-directory: /home/runner/work/Nunit/Nunit
+        run: |
+             New-Item -Path /home/runner/work/Nunit/Nunit/dotcover -ItemType Directory
+             Invoke-RestMethod -Uri 'https://download.jetbrains.com/resharper/dotUltimate.2021.1.5/JetBrains.dotCover.CommandLineTools.2021.1.5.zip' -OutFile '/home/runner/work/Nunit/Nunit/dotcover/JetBrains.dotCover.CommandLineTools.2021.1.5.zip'
+             expand-archive -path '/home/runner/work/Nunit/Nunit/dotcover/JetBrains.dotCover.CommandLineTools.2021.1.5.zip' -destinationpath '/home/runner/work/Nunit/Nunit/dotcover'
+    
+      - name: dowload nunit
+        working-directory: /home/runner/work/Nunit/Nunit
+        run: |
+             New-Item -Path /home/runner/work/Nunit/Nunit/Nunitconsole -ItemType Directory
+             Invoke-RestMethod -Uri 'https://github.com/nunit/nunit-console/releases/download/v3.12/NUnit.Console-3.12.0.zip' -OutFile '/home/runner/work/Nunit/Nunit/Nunitconsole/NUnit.Console-3.12.0.zip'
+             expand-archive -path '/home/runner/work/Nunit/Nunit/Nunitconsole/NUnit.Console-3.12.0.zip' -destinationpath '/home/runner/work/Nunit/Nunit/Nunitconsole'
      
+      - name: powershell
+        run: |
+             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/Nunitconsole" -Recurse
              
       - name: Begin sonar
         shell: pwsh
         run: |
-             /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe begin /k:"test" /d:sonar.host.url="http://18.223.255.187:9000/" /d:sonar.login="468e915bea1f082d467573a002519263bc54598d" /d:sonar.cs.nunit.reportsPaths="reports/nunit_results.xml"
-             dotnet msbuild /target:Rebuild unit-testing-using-nunit.sln
-             
-             
-      - name: install nunit consoller
-        working-directory: /home/runner/work/Nunit/Nunit/
-        run: dotnet add package NUnit.ConsoleRunner --version 3.12.0
-             
-      - name: add package Nunit3TestAdapter
-        run: dotnet add unit-testing-using-nunit1.csproj package Nunit3TestAdapter
+             /home/runner/work/Nunit/Nunit/sonar/scanner/SonarScanner.MSBuild.exe begin /k:"test" /d:sonar.host.url="http://18.223.255.187:9000/" /d:sonar.login="468e915bea1f082d467573a002519263bc54598d" /d:sonar.cs.nunit.reportsPaths="reports/nunit_results.xml" /d:sonar.cs.dotcover.reportsPaths="./SonarQube.html" /d:sonar.test.inclusions="**/*.Tests/**/*" /d:sonar.exclusions="**/*.test,**/vendor/**"  
+             MSBuild.exe /target:Rebuild /property:Configuration=SonarQube /p:Platform="Any CPU" /p:RunCodeAnalysis=True /p:RunCodeAnalysisOnThisProject=true /p:CollectCoverage=true D:\a\sonar_dotnet\sonar_dotnet\WebAnalysis\SQExamples.sln
       
+      - name: nunit tests
+        run: /home/runner/work/Nunit/Nunit/Nunitconsole/nunit3-console.exe unit-testing-using-nunit1.csproj --result=reports\nunit_results.xml;format=nunit2 --output=reports\nunit_out.log --framework=net-4.5 --config=%configuration% --dispose-runners --workers=10
+             
+             
+      - name: Dot cover code coverage
+        run: D:\a\sonar_dotnet\sonar_dotnet\WebAnalysis\dotcover\dotCover.exe cover 
+             /TargetExecutable="/home/runner/work/Nunit/Nunit/Nunitconsole/nunit3-console.exe"
+            /TargetArguments="/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/SonarQube/PrimeService.Tests.dll"
+           /Output="./SonarQube.html"
+          /ReportType=HTML
+             
     
-      
-      - name: add package NUnit
-        run: dotnet add unit-testing-using-nunit1.csproj package NUnit
-    
-      - name: add test logger package 
-        run: dotnet add unit-testing-using-nunit1.csproj package NunitXml.TestLogger --version 3.0.107
-        
-      - name: run test
-        run: dotnet test unit-testing-using-nunit.sln --result=/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp3.1/nunit_results.xml
-        # run: dotnet test unit-testing-using-nunit.sln --logger:"trx;LogFileName=testresult.xml"
-         
       - name: powershell
         shell: pwsh
         run: | 
-             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin/Debug/netcoreapp3.1" -Recurse
+             Get-ChildItem -path "/home/runner/work/Nunit/Nunit/PrimeService.Tests/bin"
      
      
      
