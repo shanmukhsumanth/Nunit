@@ -81,7 +81,7 @@ jobs:
 #              MSBuild.exe /target:Rebuild /p:RunCodeAnalysis=True /p:RunCodeAnalysisOnThisProject=true /p:CollectCoverage=true D:\a\Nunit\Nunit\unit-testing-using-nunit.sln
       
       - name: nunit tests
-        run: D:\a\Nunit\Nunit\Nunitconsole\bin\net35\nunit3-console.exe unit-testing-using-nunit1.csproj --result=reports\nunit_results.xml;format=nunit2 --output=reports\nunit_out.log --framework=net-4.5 --config=%configuration% --dispose-runners --workers=10
+        run: D:\a\Nunit\Nunit\Nunitconsole\bin\net35\nunit3-console.exe unit-testing-using-nunit1.csproj --result=reports\nunit_results.xml
              
              
       - name: Dot cover code coverage
